@@ -59,8 +59,8 @@ function submitWheelForm() {
             }
         }
     }
-    if (diameters.length != 4 || brandWheels.length != 4) {
-        alert("Wheel diameter should be between 1 and 2 and all fields must be filled in.");
+    if (diameters.length != 4) {
+        alert("Wheel diameter should be between 1 and 2.");
         diameters = [];
     }
     if (diameters.length === 4) {
