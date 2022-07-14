@@ -1,13 +1,13 @@
 let car: Car;
 function submitCar() {
-    const regexForplateInput: RegExp = /^[0-9]{4}[A-Z]{3}$/;
+    const regexForPlateInput: RegExp = /^[0-9]{4}[A-Z]{3}$/;
     let errores = 0;
     let plateInput: HTMLInputElement = <HTMLInputElement>document.getElementById("plateInput");
     let brandInput: HTMLInputElement = <HTMLInputElement>document.getElementById("brandInput");
     let colorInput: HTMLInputElement = <HTMLInputElement>document.getElementById("colorInput");
 
     //EX1. Validar los campos de matricula (formato: 1234ABC), marca y color, antes de hacer el new Car
-    if (!regexForplateInput.test(plateInput.value) || brandInput.value === "" || colorInput.value === "") errores++;
+    if (!regexForPlateInput.test(plateInput.value) || brandInput.value === "" || colorInput.value === "") errores++;
 
     if (errores != 0) {
         alert('Please, fill in the blanks correctly')
@@ -40,19 +40,19 @@ function submitWheelForm() {
     for (let i = 1; i <= 4; i++) {
         let brandWheel: HTMLInputElement = <HTMLInputElement>document.getElementById("brandWheel" + i);
         let diameterWheel: HTMLInputElement = <HTMLInputElement>document.getElementById("diameterWheel" + i);
-       
-        if (!validateDiameter(Number(diameterWheel.value)) || brandWheel.value === "") errors ++;
+
+        if (!validateDiameter(Number(diameterWheel.value)) || brandWheel.value === "") errors++;
     }
-    if (errors != 0){
+    if (errors != 0) {
         alert("Wheel diameter should be between 1 and 2 and all fields must be filled in.");
         return;
-    } 
+    }
     for (let i = 1; i <= 4; i++) {
         let brandWheel: HTMLInputElement = <HTMLInputElement>document.getElementById("brandWheel" + i);
         let diameterWheel: HTMLInputElement = <HTMLInputElement>document.getElementById("diameterWheel" + i);
         let wheel_generica: Wheel = new Wheel(Number(diameterWheel.value), brandWheel.value);
         car.addWheel(wheel_generica);
-    }          
+    }
     console.log(car)
     showWheels();
 }
