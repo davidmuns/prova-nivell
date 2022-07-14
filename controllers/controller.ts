@@ -30,14 +30,14 @@ function showVehicle() {
     colorOutput.innerText = "Color: " + car.color;
 
 }
-function submitWheelForm() {
+function submitWheelForm(ruedas: number) {
     let errors: number = 0;
     //EX2. Solo hacer el "new Wheel" si las 4 ruedas son correctas
     //EX3. Una rueda correcta deberá tener un diámetro entre 1 y 2. Crear una función para validarlas
     const validateDiameter = (diameter: number): boolean => {
         return diameter >= 1 && diameter <= 2 ? true : false;
     }
-    for (let i = 1; i <= 4; i++) {
+    for (let i = 1; i <= ruedas; i++) {
         let brandWheel: HTMLInputElement = <HTMLInputElement>document.getElementById("brandWheel" + i);
         let diameterWheel: HTMLInputElement = <HTMLInputElement>document.getElementById("diameterWheel" + i);
 
@@ -47,11 +47,11 @@ function submitWheelForm() {
         alert("Wheel diameter should be between 1 and 2 and all fields must be filled in.");
         return;
     }
-    for (let i = 1; i <= 4; i++) {
+    for (let i = 1; i <= ruedas; i++) {
         let brandWheel: HTMLInputElement = <HTMLInputElement>document.getElementById("brandWheel" + i);
         let diameterWheel: HTMLInputElement = <HTMLInputElement>document.getElementById("diameterWheel" + i);
-        let wheel_generica: Wheel = new Wheel(Number(diameterWheel.value), brandWheel.value);
-        car.addWheel(wheel_generica);
+        let wheel: Wheel = new Wheel(Number(diameterWheel.value), brandWheel.value);
+        car.addWheel(wheel);
     }
     console.log(car)
     showWheels();
