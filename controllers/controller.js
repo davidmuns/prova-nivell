@@ -27,14 +27,14 @@ function showVehicle() {
     brandOutput.innerText = "Brand: " + car.brand;
     colorOutput.innerText = "Color: " + car.color;
 }
-function submitWheelForm() {
+function submitWheelForm(ruedas) {
     var errors = 0;
     //EX2. Solo hacer el "new Wheel" si las 4 ruedas son correctas
     //EX3. Una rueda correcta deberá tener un diámetro entre 1 y 2. Crear una función para validarlas
     var validateDiameter = function (diameter) {
         return diameter >= 1 && diameter <= 2 ? true : false;
     };
-    for (var i = 1; i <= 4; i++) {
+    for (var i = 1; i <= ruedas; i++) {
         var brandWheel = document.getElementById("brandWheel" + i);
         var diameterWheel = document.getElementById("diameterWheel" + i);
         if (!validateDiameter(Number(diameterWheel.value)) || brandWheel.value === "")
@@ -44,11 +44,11 @@ function submitWheelForm() {
         alert("Wheel diameter should be between 1 and 2 and all fields must be filled in.");
         return;
     }
-    for (var i = 1; i <= 4; i++) {
+    for (var i = 1; i <= ruedas; i++) {
         var brandWheel = document.getElementById("brandWheel" + i);
         var diameterWheel = document.getElementById("diameterWheel" + i);
-        var wheel_generica = new Wheel(Number(diameterWheel.value), brandWheel.value);
-        car.addWheel(wheel_generica);
+        var wheel = new Wheel(Number(diameterWheel.value), brandWheel.value);
+        car.addWheel(wheel);
     }
     console.log(car);
     showWheels();
