@@ -1,19 +1,13 @@
 let car: Car;
-const regex = {
-    plateInput: /^[0-9]{4}[A-Z]{3}$/, // e.g 0000FFF
-    colorInput: /^[a-zA-Z]{3,8}$/,
-    brandInput: /^[a-zA-Z]{3,8}$/
-}
 function submitCar() {
+    const regexForplateInput: RegExp = /^[0-9]{4}[A-Z]{3}$/;
     let errores = 0;
-    let plateInput = <HTMLInputElement>document.getElementById("plateInput");
-    let brandInput = <HTMLInputElement>document.getElementById("brandInput");
-    let colorInput = <HTMLInputElement>document.getElementById("colorInput");
+    let plateInput: HTMLInputElement = <HTMLInputElement>document.getElementById("plateInput");
+    let brandInput: HTMLInputElement = <HTMLInputElement>document.getElementById("brandInput");
+    let colorInput: HTMLInputElement = <HTMLInputElement>document.getElementById("colorInput");
 
     //EX1. Validar los campos de matricula (formato: 1234ABC), marca y color, antes de hacer el new Car
-    if (!regex.plateInput.test(plateInput.value)) errores++;
-    if (!regex.brandInput.test(brandInput.value)) errores++;
-    if (!regex.colorInput.test(colorInput.value)) errores++;
+    if (!regexForplateInput.test(plateInput.value) || brandInput.value === "" || colorInput.value === "") errores++;
 
     if (errores != 0) {
         alert('Please, fill in the blanks correctly')
@@ -25,10 +19,10 @@ function submitCar() {
 }
 
 function showVehicle() {
-    let carTitle = <HTMLInputElement>document.getElementById("carTitle");
-    let plateOutput = <HTMLInputElement>document.getElementById("plateOutput");
-    let brandOutput = <HTMLInputElement>document.getElementById("brandOutput");
-    let colorOutput = <HTMLInputElement>document.getElementById("colorOutput");
+    let carTitle: HTMLInputElement = <HTMLInputElement>document.getElementById("carTitle");
+    let plateOutput: HTMLInputElement = <HTMLInputElement>document.getElementById("plateOutput");
+    let brandOutput: HTMLInputElement = <HTMLInputElement>document.getElementById("brandOutput");
+    let colorOutput: HTMLInputElement = <HTMLInputElement>document.getElementById("colorOutput");
 
     carTitle.innerText = "Car:";
     plateOutput.innerText = "Plate: " + car.plate;
@@ -36,41 +30,31 @@ function showVehicle() {
     colorOutput.innerText = "Color: " + car.color;
 
 }
-let diameters: number[] = [];
-let brandWheels: string[] = [];
 function submitWheelForm() {
+    let errors: number = 0;
     //EX2. Solo hacer el "new Wheel" si las 4 ruedas son correctas
     //EX3. Una rueda correcta deberá tener un diámetro entre 1 y 2. Crear una función para validarlas
     const validateDiameter = (diameter: number): boolean => {
         return diameter >= 1 && diameter <= 2 ? true : false;
     }
     for (let i = 1; i <= 4; i++) {
-        let brandWheel = <HTMLInputElement>document.getElementById("brandWheel" + i);
-        let diameterWheel = <HTMLInputElement>document.getElementById("diameterWheel" + i);
-        let diameterToNumber = Number(diameterWheel.value);
-
-        if (validateDiameter(diameterToNumber)) {
-            diameters.push(diameterToNumber);
-            brandWheels.push(brandWheel.value);
-        }
-
-        if (diameters.length === 4) {
-            for (let i = 0; i < diameters.length; i++) {
-                brandWheels[i] = brandWheels[i] === "" ? "Unknown" : brandWheels[i];
-                let wheel_generica: Wheel = new Wheel(Number(diameters[i]), brandWheels[i]);
-                car.addWheel(wheel_generica);
-            }
-        }
+        let brandWheel: HTMLInputElement = <HTMLInputElement>document.getElementById("brandWheel" + i);
+        let diameterWheel: HTMLInputElement = <HTMLInputElement>document.getElementById("diameterWheel" + i);
+       
+        if (!validateDiameter(Number(diameterWheel.value)) || brandWheel.value === "") errors ++;
     }
-    if (diameters.length != 4) {
-        alert("Wheel diameter should be between 1 and 2.");
-        diameters = [];
-    }
-    if (diameters.length === 4) {
-        console.log(car)
-        showWheels();
-    }
-
+    if (errors != 0){
+        alert("Wheel diameter should be between 1 and 2 and all fields must be filled in.");
+        return;
+    } 
+    for (let i = 1; i <= 4; i++) {
+        let brandWheel: HTMLInputElement = <HTMLInputElement>document.getElementById("brandWheel" + i);
+        let diameterWheel: HTMLInputElement = <HTMLInputElement>document.getElementById("diameterWheel" + i);
+        let wheel_generica: Wheel = new Wheel(Number(diameterWheel.value), brandWheel.value);
+        car.addWheel(wheel_generica);
+    }          
+    console.log(car)
+    showWheels();
 }
 
 function showWheels() {
