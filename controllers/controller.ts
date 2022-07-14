@@ -1,13 +1,13 @@
 let car: Car;
 function submitCar() {
-    const regexForPlateInput: RegExp = /^[0-9]{4}[A-Z]{3}$/;
+    const plateInputRegex: RegExp = /^[0-9]{4}[A-Z]{3}$/;
     let errores = 0;
     let plateInput: HTMLInputElement = <HTMLInputElement>document.getElementById("plateInput");
     let brandInput: HTMLInputElement = <HTMLInputElement>document.getElementById("brandInput");
     let colorInput: HTMLInputElement = <HTMLInputElement>document.getElementById("colorInput");
 
     //EX1. Validar los campos de matricula (formato: 1234ABC), marca y color, antes de hacer el new Car
-    if (!regexForPlateInput.test(plateInput.value) || brandInput.value === "" || colorInput.value === "") errores++;
+    if (!plateInputRegex.test(plateInput.value) || brandInput.value === "" || colorInput.value === "") errores++;
 
     if (errores != 0) {
         alert('Please, fill in the blanks correctly')
